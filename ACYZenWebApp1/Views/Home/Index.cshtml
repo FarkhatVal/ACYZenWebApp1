@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ACYZenWebApp1.Models.ZenAction>
+@{
+    //ViewData["Title"] = "Список смартфонов";
+    Layout = null;
+}
+<!DOCTYPE html>
+ 
+<html>
+<head>
+    <title>Автоматизация Дзена</title>
+</head>
+<body>
+    <h3>Услуги по автоматизации управления Яндекс Дзена</h3>
+<table>
+    <tr>
+        <td>Наименование</td>
+        <td>Описание</td>
+        <td>Цена</td>
+        <td></td>
+    </tr>
+    @foreach (var zenAction in Model)
+    {
+        <tr>
+            <td>@zenAction.Name</td>
+            <td>@zenAction.Description</td>
+            <td>@zenAction.Price</td>
+            <td><a href="~/Home/Buy/@zenAction.Id">Купить</a></td>
+        </tr>
+    }
+</table>
+</body>
+</html>
+
+
+
+
+@*@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@

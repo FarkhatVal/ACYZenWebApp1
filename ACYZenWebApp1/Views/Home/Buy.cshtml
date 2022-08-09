@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+ 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Оформление заказа</title>
+</head>
+<body>
+<div>
+    <h3>Форма оформления покупки</h3>
+    <p>Для оформления покупки заполните следующие поля:</p>
+    <form method="post">
+        <input type="hidden" value="@ViewBag.ZenActionId" name="ZenActionId" />
+        <table>
+            <tr>
+                <td>Имя:</td>
+                <td><input type="text" name="_firstName" /> </td>
+            </tr>
+            <tr>
+                <td>Фамилия:</td>
+                <td><input type="text" name="_surname" /></td>
+            </tr>
+            <tr>
+                <td>Префикс Логина:</td>
+                <td><input type="text" name="_login" /></td>
+            </tr>
+            <tr>
+                <td>Название канал:</td>
+                <td><input type="text" name="_channnelName" /></td>
+            </tr>
+            <tr>
+                <td>Номер логина С:</td>
+                <td><input type="text" name="_loginNuberPre" /></td>
+            </tr>
+            <tr>
+                <td>Номер Логина ПО:</td>
+                <td><input type="text" name="_loginNuberPost" /></td>
+            </tr>
+            <tr><td><input type="submit" value="Заказать каналы" /> </td><td></td></tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
