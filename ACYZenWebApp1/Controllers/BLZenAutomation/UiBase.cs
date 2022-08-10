@@ -39,7 +39,7 @@ public class UiBase
     private const string Rent8Hours = "true";
     protected internal const string ApiGetPhoneNomber = $"/getNumber/?apiKey={ApiKey}&service=ya&country=ru&operator={OperatorMTT}&rent={Rent8Hours}";
     [OneTimeSetUp]
-    public void Setup()
+    public static void Setup()
     {
         _chromeOptions = new ChromeOptions();
         // Отключить "Браузером управляет автоматизированное ПО"

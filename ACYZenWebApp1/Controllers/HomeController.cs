@@ -12,8 +12,8 @@ namespace ACYZenWebApp1.Controllers
 {
     public class HomeController : Controller
     {
-        DZenActionContext db;
-        public HomeController(DZenActionContext context)
+        ACYZenWebAppContext db;
+        public HomeController(ACYZenWebAppContext context)
         {
             db = context;
         }
@@ -29,9 +29,9 @@ namespace ACYZenWebApp1.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<string> Buy(Channel channel, string _firstName, string _surname, string _preLogin, int _loginNuberPre, int _loginNuberPost)
+        public async Task<string> Buy(int id, Channel channel, string _firstName, string _surname, string _preLogin, string _channnelName, int _loginNuberPre, int _loginNuberPost)
         {
-            await MainOfBLZenAutomation.Registration3NewAccount1NumberAndAddNewChannelsToDb(db, channel, _firstName, _surname, _preLogin, channel._channnelName, _loginNuberPre, _loginNuberPost);
+            await MainOfBLZenAutomation.Registration3NewAccount1NumberAndAddNewChannelsToDb(id, db, /*channel,*/ _firstName, _surname, _preLogin, _channnelName, _loginNuberPre, _loginNuberPost);
             //await MainOfBLZenAutomation.AddNewChannelsToDb(db, channel, _firstName, _surname, _preLogin, _loginNuberPre, _loginNuberPost);
             /*(channel._chanelUrl, channel._login) = await MainOfBLZenAutomation.Registration3NewAccount1Number(_firstName, _surname, _preLogin, channel._channnelName,_loginNuberPre, _loginNuberPost);
             

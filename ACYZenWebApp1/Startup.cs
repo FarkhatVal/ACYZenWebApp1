@@ -15,7 +15,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
 // Add framework services.
-        services.AddDbContext<DZenActionContext>(options =>
+        services.AddDbContext<ACYZenWebAppContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         services.AddMvc();
 

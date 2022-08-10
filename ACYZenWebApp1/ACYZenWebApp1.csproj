@@ -8,7 +8,9 @@
 
     <ItemGroup>
       <PackageReference Include="2captcha-csharp" Version="1.1.3" />
+      <PackageReference Include="Azure.Core" Version="1.20.0" />
       <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+      <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.0-preview.5.22302.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-preview.6.22329.4" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0-preview.6" />
@@ -17,6 +19,7 @@
       <PackageReference Include="Selenium.Support" Version="4.3.0" />
       <PackageReference Include="Selenium.WebDriver" Version="4.3.0" />
       <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="104.0.5112.7900" />
+      <PackageReference Include="WebPages.QueryValidators" Version="0.1.0" />
     </ItemGroup>
 
     <ItemGroup>

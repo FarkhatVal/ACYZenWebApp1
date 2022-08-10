@@ -19,7 +19,7 @@ namespace ACYZenWebApp1
  
                 try
                 {
-                    var context = services.GetRequiredService<DZenActionContext>();
+                    var context = services.GetRequiredService<ACYZenWebAppContext>();
                     SampleData.Initialize(context);
                 }
                 catch (Exception ex)

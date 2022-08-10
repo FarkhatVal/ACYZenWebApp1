@@ -1,6 +1,10 @@
-﻿@{
+﻿@using System.Web.WebPages
+@using Azure.Core
+@{
     Layout = null;
 }
+
+
  
 <!DOCTYPE html>
 <html>
@@ -20,11 +24,12 @@
             </tr>
             <tr>
                 <td>Фамилия:</td>
-                <td><input type="text" name="_surname" /></td>
+                <td><input type="text" name="_surname"  /></td>
             </tr>
             <tr>
                 <td>Префикс Логина:</td>
-                <td><input type="text" name="_preLogin" /></td>
+                <td><input type="text" name="_preLogin" value=""/></td>
+                 @Html.ValidationMessage("_preLogin")
             </tr>
             <tr>
                 <td>Название канал:</td>

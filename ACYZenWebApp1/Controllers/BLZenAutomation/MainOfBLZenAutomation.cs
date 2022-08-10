@@ -1,4 +1,5 @@
-﻿using ACYZenWebApp1.Controllers.BLZenAutomation.BasicOperation;
+﻿using System.Linq;
+using ACYZenWebApp1.Controllers.BLZenAutomation.BasicOperation;
 using ACYZenWebApp1.Controllers.BLZenAutomation.Pages;
 using ACYZenWebApp1.Controllers.Pages;
 using ACYZenWebApp1.Models;
@@ -11,6 +12,7 @@ namespace ACYZenWebApp1.Controllers.BLZenAutomation;
 public class MainOfBLZenAutomation : UiBase
 {
     private static ResponseGetPhoneNomber _responseGetPhoneNumber;
+    ACYZenWebAppContext db;
    /*private static string _firstName = "Юлия";
     private static string _surname = "Нестерова";
     private static string _login = "you-li-ne.ster-";
@@ -25,11 +27,14 @@ public class MainOfBLZenAutomation : UiBase
         db.SaveChanges();
     }*/
 
-    public static async Task Registration3NewAccount1NumberAndAddNewChannelsToDb(DZenActionContext db, Channel channel, string _firstName, string _surname, string _login, string _channnelName,  int _loginNuberPre, int _loginNuberPost)
+    public static async Task Registration3NewAccount1NumberAndAddNewChannelsToDb(int zenActionid,
+        ACYZenWebAppContext db, /*Channel channel, */string _firstName, string _surname, string _login,
+        string _channnelName, int _loginNuberPre, int _loginNuberPost)
     {
         //Получаем номер телефона //Для всех аккаунтов 1 номер
         string chanelUrl = null;
         string newLogin = null;
+        Setup();
         _responseGetPhoneNumber = await GetSmsCodee.GetTelephoneNomber(Host, ApiGetPhoneNomber);
         long telNumber = _responseGetPhoneNumber.TelNomber;
         string idNum = _responseGetPhoneNumber.IdNum;
@@ -48,14 +53,26 @@ public class MainOfBLZenAutomation : UiBase
             new SecurityQuestion(Driver, Wait).Open().SetKv(KvAnswer);
             await new AccountPhoneNumbers(Driver, Wait).Open().DeleteTelNomber(Password, idNum, newLogin);
             new ZenStudio(Driver, Wait).Open();
-            channel._chanelUrl = new ChannelPage(Driver, Wait).GotoChanelAndGetUrl();
+            string channellUrl = new ChannelPage(Driver, Wait).GotoChanelAndGetUrl();
             //.GetChannelMetaTag();
-            channel._login = newLogin;
+            //channel.Login = newLogin;
             Quit(Driver, Wait);
-            db.Channels.Add(channel);
+            if (!db.Channels.Any(c=>c.Login==newLogin))
+            {
+                db.Channels.AddRange(
+                    new Channel
+                    {
+                        Login = newLogin, ChannnelName = _channnelName, ChanelUrl = channellUrl,
+                        ZenActionId = zenActionid
+                    }
+                );
+                db.SaveChanges();
+            }
+            /*db.Channels.Add(channel);
             // сохраняем в бд все изменения
-            db.SaveChanges();
+            db.SaveChanges();*/
         }
-        TearDown();
+        Driver.Close();
+        Driver.Quit();
     }
 }

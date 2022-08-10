@@ -3,8 +3,8 @@
 namespace ACYZenWebApp1;
 
 public class SampleData
-{
-    public static void Initialize(DZenActionContext context)
+{ 
+    public static void Initialize(ACYZenWebAppContext context)
         {
             if (!context.ZenActions.Any())
             {
@@ -31,4 +31,4 @@ public class SampleData
                 context.SaveChanges();
             }
         }
-    }
+}
