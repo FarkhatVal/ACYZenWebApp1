@@ -39,6 +39,6 @@ public class MainOfBLZenAutomation : UiBase
             //.GetChannelMetaTag();
             Quit(Driver, Wait);
         }
-        return chanelUrl;
+        return chanelUrl; 
     }
 }
