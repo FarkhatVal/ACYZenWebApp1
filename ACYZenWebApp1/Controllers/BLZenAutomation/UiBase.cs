@@ -56,8 +56,7 @@ public class UiBase
         Driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), _chromeOptions);
         Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(15));
     }*/
-    [TearDown]
-    public void TearDown()
+    public static void TearDown()
     {
         Driver.Close();
         Driver.Quit();

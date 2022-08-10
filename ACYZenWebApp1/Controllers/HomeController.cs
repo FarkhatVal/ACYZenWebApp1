@@ -29,14 +29,16 @@ namespace ACYZenWebApp1.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<string> Buy(Channel channel)
+        public async Task<string> Buy(Channel channel, string _firstName, string _surname, string _preLogin, int _loginNuberPre, int _loginNuberPost)
         {
-            channel._chanelUrl = await MainOfBLZenAutomation.Registration3NewAccount1Number(channel._firstName, channel._surname, channel._login, channel._channnelName,channel._loginNuberPre, channel._loginNuberPost);
+            await MainOfBLZenAutomation.Registration3NewAccount1NumberAndAddNewChannelsToDb(db, channel, _firstName, _surname, _preLogin, channel._channnelName, _loginNuberPre, _loginNuberPost);
+            //await MainOfBLZenAutomation.AddNewChannelsToDb(db, channel, _firstName, _surname, _preLogin, _loginNuberPre, _loginNuberPost);
+            /*(channel._chanelUrl, channel._login) = await MainOfBLZenAutomation.Registration3NewAccount1Number(_firstName, _surname, _preLogin, channel._channnelName,_loginNuberPre, _loginNuberPost);
             
             db.Channels.Add(channel);
             // сохраняем в бд все изменения
-            db.SaveChanges();
-            return "Спасибо, " + channel._firstName + ", за покупку!";
+            db.SaveChanges();*/
+            return "Спасибо, " + ", за покупку!\nВаши сгенерированные каналы будут доступны в личном кабинете в разделе \"Мои каналы\"";
         }
     }
 }

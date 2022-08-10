@@ -1,6 +1,8 @@
 ﻿using ACYZenWebApp1.Controllers.BLZenAutomation.BasicOperation;
 using ACYZenWebApp1.Controllers.BLZenAutomation.Pages;
 using ACYZenWebApp1.Controllers.Pages;
+using ACYZenWebApp1.Models;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -9,14 +11,25 @@ namespace ACYZenWebApp1.Controllers.BLZenAutomation;
 public class MainOfBLZenAutomation : UiBase
 {
     private static ResponseGetPhoneNomber _responseGetPhoneNumber;
-    /*private static string _firstName = "Юлия";
+   /*private static string _firstName = "Юлия";
     private static string _surname = "Нестерова";
     private static string _login = "you-li-ne.ster-";
     private static string _channnelName = "Hовости";*/
-    public static async Task<string> Registration3NewAccount1Number(string _firstName, string _surname, string _login, string _channnelName,  int _loginNuberPre, int _loginNuberPost)
+
+    /*public static async Task AddNewChannelsToDb(DZenActionContext db, Channel channel, string _firstName, string _surname, string _preLogin, int _loginNuberPre, int _loginNuberPost)
+    {
+        (channel._chanelUrl, channel._login) = await Registration3NewAccount1Number(db, channel, _firstName, _surname, _preLogin, channel._channnelName,_loginNuberPre, _loginNuberPost);
+            
+        db.Channels.Add(channel);
+        // сохраняем в бд все изменения
+        db.SaveChanges();
+    }*/
+
+    public static async Task Registration3NewAccount1NumberAndAddNewChannelsToDb(DZenActionContext db, Channel channel, string _firstName, string _surname, string _login, string _channnelName,  int _loginNuberPre, int _loginNuberPost)
     {
         //Получаем номер телефона //Для всех аккаунтов 1 номер
         string chanelUrl = null;
+        string newLogin = null;
         _responseGetPhoneNumber = await GetSmsCodee.GetTelephoneNomber(Host, ApiGetPhoneNomber);
         long telNumber = _responseGetPhoneNumber.TelNomber;
         string idNum = _responseGetPhoneNumber.IdNum;
@@ -25,7 +38,7 @@ public class MainOfBLZenAutomation : UiBase
             if (!new RegistrationPage(Driver, Wait).Open().InputLoginAndPassword(_firstName, i,
                     _surname, _login, Password, _loginNuberPost)) continue;
             Console.WriteLine($"Аккаунт {i}:");
-            var newLogin = _login + i;
+            newLogin = _login + i;
             await BasicOperation.BasicOperation.InputAndConfirmTelNumber(Driver, Wait, telNumber, idNum);
             await GetSmsCodee.TelNomberStatusSend(Host, ApiKey, idNum);
             await BasicOperation.BasicOperation.GetAndInputSmsCode(Driver, Wait, idNum, i);
@@ -35,10 +48,14 @@ public class MainOfBLZenAutomation : UiBase
             new SecurityQuestion(Driver, Wait).Open().SetKv(KvAnswer);
             await new AccountPhoneNumbers(Driver, Wait).Open().DeleteTelNomber(Password, idNum, newLogin);
             new ZenStudio(Driver, Wait).Open();
-            chanelUrl = new ChannelPage(Driver, Wait).GotoChanelAndGetUrl();
+            channel._chanelUrl = new ChannelPage(Driver, Wait).GotoChanelAndGetUrl();
             //.GetChannelMetaTag();
+            channel._login = newLogin;
             Quit(Driver, Wait);
+            db.Channels.Add(channel);
+            // сохраняем в бд все изменения
+            db.SaveChanges();
         }
-        return chanelUrl; 
+        TearDown();
     }
 }
