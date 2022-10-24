@@ -1,15 +1,45 @@
 ﻿@using System.Web.WebPages
+@using System.Web.WebPages
+@*@using System.Web.Helpers.Validation*@
 @using Azure.Core
 @{
     Layout = null;
 }
 
+@*
+@{
+    var message="";
+    // Specify validation requirements for different fields.
+    ValidationHelper.RequireField("_surname", "Class name is required");
+    Validation.RequireField("credits", "Credits is required");
+    Validation.Add("coursename", Validator.StringLength(5));
+    Validation.Add("credits", Validator.Integer("Credits must be an integer"));
+    Validation.Add("credits", Validator.Range(1, 5, "Credits must be between 1 and 5"));
+    Validation.Add("startDate", Validator.DateTime("Start date must be a date"));
+
+    if (IsPost)  {
+        // Before processing anything, make sure that all user input is valid.
+        if (Validation.IsValid()) {
+            var coursename = Request["_surname"];
+            
+
+            // Further processing here
+        }
+    }
+}*@
 
  
 <!DOCTYPE html>
 <html>
 <head>
     <title>Оформление заказа</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.js">
+    </script>
+    <script
+    src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.js">
+    </script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js">
+    </script>
 </head>
 <body>
 <div>
@@ -24,12 +54,11 @@
             </tr>
             <tr>
                 <td>Фамилия:</td>
-                <td><input type="text" name="_surname"  /></td>
+                <td><input type="text" name="_surname" @*value="@Request["_surname"]" @Validation.For("c_surname")*@/></td>
             </tr>
             <tr>
                 <td>Префикс Логина:</td>
-                <td><input type="text" name="_preLogin" value=""/></td>
-                 @Html.ValidationMessage("_preLogin")
+                <td><input type="text" name="_preLogin" /></td>
             </tr>
             <tr>
                 <td>Название канал:</td>
